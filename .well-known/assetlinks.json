@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.ammnay.patrimoine",
+        "sha256_cert_fingerprints": ["29:E7:0A:12:D4:BF:74:8A:13:9F:2B:DF:E2:DA:0C:1F:0E:94:0D:6C:9B:31:4D:72:23:67:D6:DC:94:2B:68:0C"]
+      }
+    }]
