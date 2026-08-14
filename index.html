@@ -347,5 +347,10 @@ function migrateV1(){if(localStorage.getItem('pv2_migrated_v1'))return;const old
 
 document.addEventListener('DOMContentLoaded',()=>{migrateV1();document.getElementById('s-date').valueAsDate=new Date();renderDash();renderSaisie();});
 </script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/patrimoine-app/sw.js');
+}
+</script>
 </body>
 </html>
