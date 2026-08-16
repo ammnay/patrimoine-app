@@ -213,7 +213,7 @@ const K_E='pv2_entries',K_A='pv2_accounts';
 const DA=[
   {id:'celi',name:'CELI',color:'#3B82F6',type:'registered'},
   {id:'reer',name:'REER',color:'#34D399',type:'registered'},
-  {id:'raa',name:'RAA',color:'#FBBF24',type:'pension'},
+  {id:'CELIAP',name:'CELIAP',color:'#FBBF24',type:'pension'},
   {id:'crypto',name:'Crypto WS',color:'#A78BFA',type:'crypto'}
 ];
 function getA(){try{const r=localStorage.getItem(K_A);if(r){const p=JSON.parse(r);if(Array.isArray(p)&&p.length)return p;}}catch(e){}return DA.map(a=>({...a}));}
@@ -343,7 +343,7 @@ function showExport(){showSheet('Exporter les données','Choisissez le format de
 function doCSV(){const E=getE(),A=getA();if(!E.length){toast('Aucune donnée');return;}const hdr=['Date',...A.map(a=>a.name),'Total'];const rows=E.map(e=>[e.date,...A.map(a=>(parseFloat(e[a.id])||0).toFixed(2)),rT(e,A).toFixed(2)]);const csv=[hdr,...rows].map(r=>r.join(',')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'}));a.download='patrimoine_'+new Date().toISOString().slice(0,10)+'.csv';a.click();URL.revokeObjectURL(a.href);toast('CSV téléchargé','ok');}
 function doJSON(){const data={version:2,exportDate:new Date().toISOString(),accounts:getA(),entries:getE()};const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));a.download='patrimoine_'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(a.href);toast('JSON téléchargé','ok');}
 
-function migrateV1(){if(localStorage.getItem('pv2_migrated_v1'))return;const old=localStorage.getItem('financialData');if(!old)return;try{const d=JSON.parse(old);if(Array.isArray(d)&&d.length){saveE(d.map(e=>({date:e.date,celi:e.celi||0,reer:e.reer||0,raa:e.raa||0,crypto:e.crypto||0,total:e.total||0})));localStorage.setItem('pv2_migrated_v1','1');toast('Données v1 migrées ('+d.length+' pointages)','ok',4000);}}catch(e){}}
+function migrateV1(){if(localStorage.getItem('pv2_migrated_v1'))return;const old=localStorage.getItem('financialData');if(!old)return;try{const d=JSON.parse(old);if(Array.isArray(d)&&d.length){saveE(d.map(e=>({date:e.date,celi:e.celi||0,reer:e.reer||0,CELIAP:e.CELIAP||0,crypto:e.crypto||0,total:e.total||0})));localStorage.setItem('pv2_migrated_v1','1');toast('Données v1 migrées ('+d.length+' pointages)','ok',4000);}}catch(e){}}
 
 document.addEventListener('DOMContentLoaded',()=>{migrateV1();document.getElementById('s-date').valueAsDate=new Date();renderDash();renderSaisie();});
 </script>
